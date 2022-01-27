@@ -6,27 +6,27 @@ import lombok.*;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@Table(name = "tb_user")
-public class User implements Serializable {
+@Table(name = "tb_category")
+public class Category implements Serializable {
 
     @Id
     @EqualsAndHashCode.Include
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private  Long id;
 
     private String name;
-    private String email;
-    private String phone;
-    private String password;
 
-    @OneToMany(mappedBy = "client")
+    @ManyToMany(mappedBy = "categories")
+    @Getter
     @JsonIgnore
-    private List<Order> orders = new ArrayList<>();
+    private Set<Product> products = new HashSet<>();
 }
